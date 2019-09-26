@@ -2,11 +2,6 @@
 
 Search in array of object by property
 
-**In HTML Template**
-
-```
-{{ collection | searchBy: searchWord: propertySearch }}
-```
 **Arguments**
 
 | Param        | Type           | Default  | Details | 
@@ -29,12 +24,18 @@ import { NgModule } from '@angular/core';
 import { BrowserModule  } from '@angular/platform-browser';
 import { AppComponent } from './app';
  
-import { FilterPipeModule } from 'ngx-filter-pipe';
+import { PipeSearchByModule } from 'ngx-pipe-search-by';
  
 @NgModule({
-  imports: [BrowserModule, FilterPipeModule],
+  imports: [BrowserModule, PipeSearchByModule],
   declarations: [AppComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
+```
+
+**In HTML Template**
+
+```
+{{ collection | searchBy: searchWord: propertySearch }}
 ```
