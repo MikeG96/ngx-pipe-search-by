@@ -1,7 +1,7 @@
 {
   "name": "ngx-pipe-search-by",
   "author": "Miguel Lopez",
-  "version": "0.0.1-beta.0",
+  "version": "0.0.1-beta.1",
   "description": "Filter values by a property in array of objects",
   "keywords": [
     "search",
@@ -13,7 +13,7 @@
     "angular7",
     "angular8"
   ],
-  "license": "UNLICENSED",
+  "license": "GPLV3",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
