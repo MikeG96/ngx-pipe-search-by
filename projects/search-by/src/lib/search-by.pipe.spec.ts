@@ -51,4 +51,72 @@ describe('SearchByPipe', () => {
 
     expect(result).toEqual([]);
   });
+  it('should all values in client.name object in array', () => {
+    const pipe = new SearchByPipe();
+    const array = [
+      {
+        name: 'name',
+        client: {
+          name: 'javier'
+        }
+      },
+      {
+        name: 'name'
+      }
+    ];
+    const result = pipe.transform(array, 'javier', 'client.name');
+
+    expect(result).toEqual([
+      {
+        name: 'name',
+        client: {
+          name: 'javier'
+        }
+      }
+    ]);
+  });
+  it('should empty array when search in client.name', () => {
+    const pipe = new SearchByPipe();
+    const array = [
+      {
+        name: 'name'
+      },
+      {
+        name: 'name'
+      }
+    ];
+    const result = pipe.transform(array, 'javier', 'client.name');
+
+    expect(result).toEqual([]);
+  });
+  it('should all values in client.pet.name object in array', () => {
+    const pipe = new SearchByPipe();
+    const array = [
+      {
+        name: 'name',
+        client: {
+          name: 'javier',
+          pet: {
+            name: 'perrito'
+          }
+        }
+      },
+      {
+        name: 'name'
+      }
+    ];
+    const result = pipe.transform(array, 'perrito', 'client.pet.name');
+
+    expect(result).toEqual([
+      {
+        name: 'name',
+        client: {
+          name: 'javier',
+          pet: {
+            name: 'perrito'
+          }
+        }
+      }
+    ]);
+  });
 });
