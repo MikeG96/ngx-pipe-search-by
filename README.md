@@ -8,7 +8,7 @@ Search in array of object by property
 | ------------- |:-------------:| -----:| -----------|
 | collection      | `array` | - | The collection to filter
 | searchWord      | `string`      |   - | String to search
-| propertySearch | `string`      |    - | Property to look for  
+| propertySearch | `string`      |    - | Property to look for. Examples: `name`, `client.name`, `client.pets[0].name`  
 | sensitive | `boolean` | true| Case sensitive
 
 # Install
@@ -37,5 +37,8 @@ export class AppModule {}
 **In HTML Template**
 
 ```
-{{ collection | searchBy: searchWord: propertySearch }}
+<div *ngFor="let item of collection | searchBy: searchWord: propertySearch }}">
+  <!-- HERE HTML -->
+</div>
+
 ```
