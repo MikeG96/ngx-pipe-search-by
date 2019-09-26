@@ -1,7 +1,7 @@
 {
   "name": "ngx-pipe-search-by",
   "author": "Miguel Lopez",
-  "version": "0.0.1-beta.1",
+  "version": "0.0.1-beta.2",
   "description": "Filter values by a property in array of objects",
   "keywords": [
     "search",
@@ -14,6 +14,10 @@
     "angular8"
   ],
   "license": "GPLV3",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MikeG96/ngx-pipe-search-by.git"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
