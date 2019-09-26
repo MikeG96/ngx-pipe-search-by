@@ -18,6 +18,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "search-by": [
+        "dist/search-by"
+      ],
+      "search-by/*": [
+        "dist/search-by/*"
+      ]
+    }
   }
 }

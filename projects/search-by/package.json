@@ -1,0 +1,21 @@
+{
+  "name": "@ngx-pipe-search-by",
+  "author": "Miguel Lopez",
+  "version": "0.0.1-beta.0",
+  "description": "Filter values by a property in array of objects",
+  "keywords": [
+    "search",
+    "array",
+    "object",
+    "objects",
+    "pipe",
+    "angular6",
+    "angular7",
+    "angular8"
+  ],
+  "license": "UNLICENSED",
+  "peerDependencies": {
+    "@angular/common": "^6.0.0",
+    "@angular/core": "^6.0.0"
+  }
+}
