@@ -24,7 +24,10 @@ describe('SearchByPipe', () => {
   });
   it('should all values with name animal', () => {
     const pipe = new SearchByPipe();
-    const result = pipe.transform(values, 'animal', 'name');
+    const propertiesForSearch = [
+      'name'
+    ];
+    const result = pipe.transform(values, 'animal', propertiesForSearch);
     let isPassed: boolean = false;
 
     if (result.length === 3) {
@@ -36,7 +39,10 @@ describe('SearchByPipe', () => {
   });
   it('should all values with name animal non sensitivity', () => {
     const pipe = new SearchByPipe();
-    const result = pipe.transform(values, 'animal', 'name', false);
+    const propertiesForSearch = [
+      'name'
+    ];
+    const result = pipe.transform(values, 'animal', propertiesForSearch, false);
     let isPassed: boolean = false;
 
     if (result.length === 1) {
@@ -47,7 +53,10 @@ describe('SearchByPipe', () => {
   });
   it('should empty array', () => {
     const pipe = new SearchByPipe();
-    const result = pipe.transform(values, 'perro', 'name');
+    const propertiesForSearch = [
+      'name'
+    ];
+    const result = pipe.transform(values, 'perro', propertiesForSearch);
 
     expect(result).toEqual([]);
   });
@@ -64,7 +73,10 @@ describe('SearchByPipe', () => {
         name: 'name'
       }
     ];
-    const result = pipe.transform(array, 'javier', 'client.name');
+    const propertiesForSearch = [
+      'client.name'
+    ];
+    const result = pipe.transform(array, 'javier', propertiesForSearch);
 
     expect(result).toEqual([
       {
@@ -85,7 +97,10 @@ describe('SearchByPipe', () => {
         name: 'name'
       }
     ];
-    const result = pipe.transform(array, 'javier', 'client.name');
+    const propertiesForSearch = [
+      'client.name'
+    ];
+    const result = pipe.transform(array, 'javier', propertiesForSearch);
 
     expect(result).toEqual([]);
   });
@@ -105,7 +120,10 @@ describe('SearchByPipe', () => {
         name: 'name'
       }
     ];
-    const result = pipe.transform(array, 'perrito', 'client.pet.name');
+    const propertiesForSearch = [
+      'client.pet.name'
+    ];
+    const result = pipe.transform(array, 'perrito', propertiesForSearch);
 
     expect(result).toEqual([
       {
@@ -115,6 +133,56 @@ describe('SearchByPipe', () => {
           pet: {
             name: 'perrito'
           }
+        }
+      }
+    ]);
+  });
+  it('should all values in array for properties for search in array', () => {
+    const pipe = new SearchByPipe();
+    const array = [
+      {
+        name: 'name',
+        client: {
+          name: 'javier',
+          pet: {
+            name: 'perrito'
+          }
+        }
+      },
+      {
+        name: 'mike',
+        info: {
+          email: 'luis.javier@mike.com'
+        }
+      },
+      {
+        email: 'javier.luis@mike.com'
+      }
+    ];
+    const propertiesForSearch = [
+      'client.name',
+      'email',
+      'info.email'
+    ];
+    const result = pipe.transform(array, 'javier', propertiesForSearch);
+
+    expect(result).toEqual([
+      {
+        name: 'name',
+        client: {
+          name: 'javier',
+          pet: {
+            name: 'perrito'
+          }
+        }
+      },
+      {
+        email: 'javier.luis@mike.com'
+      },
+      {
+        name: 'mike',
+        info: {
+          email: 'luis.javier@mike.com'
         }
       }
     ]);

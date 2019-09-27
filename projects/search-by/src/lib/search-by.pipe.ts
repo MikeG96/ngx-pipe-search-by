@@ -5,24 +5,32 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class SearchByPipe implements PipeTransform {
 
-  transform(value: Array<{}>, searchWord: string, propertySearch: string, sensitive: boolean = true): Array<any> {
+  transform(value: Array<{}>, searchWord: string, propertiesForSearch: Array<string>, sensitive: boolean = true): Array<any> {
     const array = [];
     if (searchWord) {
       if (searchWord !== '' && searchWord !== null) {
         if (sensitive) {
-          value.map(val => {
-            const result = this.searchInByString(val, propertySearch);
-            if (result.toLowerCase().indexOf(searchWord.toLowerCase()) > -1) {
-              array.push(val);
-            }
+          propertiesForSearch.map((property: string) => {
+            value.map(val => {
+              const result = this.searchInByString(val, property);
+              if (result) {
+                if (result.toLowerCase().indexOf(searchWord.toLowerCase()) > -1) {
+                  array.push(val);
+                }
+              }
+            });
           });
           return array;
         } else {
-          value.map(val => {
-            const result = this.searchInByString(val, propertySearch);
-            if (result.indexOf(searchWord) > -1) {
-              array.push(val);
-            }
+          propertiesForSearch.map((property: string) => {
+            value.map(val => {
+              const result = this.searchInByString(val, property);
+              if (result) {
+                if (result.indexOf(searchWord.toLowerCase()) > -1) {
+                  array.push(val);
+                }
+              }
+            });
           });
           return array;
         }
@@ -31,17 +39,23 @@ export class SearchByPipe implements PipeTransform {
     return value;
   }
 
-  private searchInByString(object: {} = {}, property: string): any {
-    let key = property;
-    let obj = object;
-    key = key.replace(/\[(\w+)\]/g, '.$1'); // Convert indexes to properties
-    key = key.replace(/^\./, '');           // Strip a leading dot
-    const keys = key.split('.');
-    for (const attribute of keys) {
-      if (attribute in obj) {
-        obj = obj[attribute];
+  private searchInByString(obj: {} = {}, properties: string, value?): any {
+    const keys = properties.split('.');
+    if (value) {
+      return value;
+    } else {
+      const type = typeof obj[keys[0]];
+      if (type === 'string' || type === 'number' || type === 'boolean') {
+        value = obj[keys[0]];
+        return this.searchInByString({}, '', value);
+      }
+      if (type === 'object') {
+        let newObj = {};
+        newObj = Object.assign(newObj, obj[keys[0]]);
+        keys.splice(0, 1);
+        const newProperties = keys.join('.');
+        return this.searchInByString(newObj, newProperties);
       }
     }
-    return obj;
   }
 }
