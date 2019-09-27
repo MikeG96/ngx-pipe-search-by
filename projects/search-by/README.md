@@ -4,12 +4,12 @@ Search in array of object by property
 
 **Arguments**
 
-| Param          |   Type    | Default | Details                                                                      |
-| -------------- | :-------: | ------: | ---------------------------------------------------------------------------- |
-| collection     |  `array`  |       - | The collection to filter                                                     |
-| searchWord     | `string`  |       - | String to search                                                             |
-| propertySearch | `string`  |       - | Property to look for. Examples: `name`, `client.name`, `client.pets[0].name` |
-| sensitive      | `boolean` |    true | Case sensitive                                                               |
+| Param            |      Type       | Default | Details                                                                          |
+| ---------------- | :-------------: | ------: | -------------------------------------------------------------------------------- |
+| collection       |     `Array`     |       - | The collection to filter                                                         |
+| searchWord       |    `string`     |       - | String to search                                                                 |
+| propertiesSearch | `Array<string>` |       - | Property to look for. Examples: `[name]`, `[name, client.name, client.pet.name`] |
+| sensitive        |    `boolean`    |    true | Case sensitive                                                                   |
 
 # Install
 
@@ -22,11 +22,11 @@ npm install ngx-pipe-search-by --save
 Import `PipeSearchByModule` to your module
 
 ```typescript
-import { NgModule } from '@angular/core';
-import { BrowserModule  } from '@angular/platform-browser';
-import { AppComponent } from './app';
+import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
+import { AppComponent } from "./app";
 
-import { PipeSearchByModule } from 'ngx-pipe-search-by';
+import { PipeSearchByModule } from "ngx-pipe-search-by";
 
 @NgModule({
   imports: [BrowserModule, PipeSearchByModule],
@@ -39,8 +39,9 @@ export class AppModule {}
 **In HTML Template**
 
 ```html
-<div *ngFor="let item of collection | searchBy: searchWord: propertySearch: sensitive">
+<div
+  *ngFor="let item of collection | searchBy: searchWord: propertiesSearch: sensitive"
+>
   <!-- HERE HTML -->
 </div>
-
 ```
