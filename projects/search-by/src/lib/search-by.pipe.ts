@@ -5,45 +5,45 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class SearchByPipe implements PipeTransform {
 
+  private array: Array<any> = [];
+  private skips: Array<number> = [];
+
   transform(value: Array<{}>, searchWord: string, propertiesForSearch: Array<string>, sensitive: boolean = true): Array<any> {
-    const array = [];
-    const indexes = [];
     if (searchWord) {
+      this.initArrays();
       if (searchWord !== '' && searchWord !== null) {
-        if (sensitive) {
-          propertiesForSearch.map((property: string) => {
-            value.map((val, index) => {
-              if (indexes.indexOf(index) === -1) {
-                const result = this.searchInByString(val, property);
-                if (result) {
+        propertiesForSearch.map((property: string) => {
+          value.map((val, index) => {
+            if (this.skips.indexOf(index) === -1) {
+              const result = this.searchInByString(val, property);
+              if (result) {
+                if (sensitive) {
                   if (result.toLowerCase().indexOf(searchWord.toLowerCase()) > -1) {
-                    array.push(val);
-                    indexes.push(index);
+                    this.addItems(val, index);
                   }
-                }
-              }
-            });
-          });
-          return array;
-        } else {
-          propertiesForSearch.map((property: string) => {
-            value.forEach((val, index) => {
-              if (indexes.indexOf(index) === -1) {
-                const result = this.searchInByString(val, property);
-                if (result) {
+                } else {
                   if (result.indexOf(searchWord.toLowerCase()) > -1) {
-                    array.push(val);
-                    indexes.push(index);
+                    this.addItems(val, index);
                   }
                 }
               }
-            });
+            }
           });
-          return array;
-        }
+        });
+        return this.array;
       }
     }
     return value;
+  }
+
+  private initArrays() {
+    this.array = [];
+    this.skips = [];
+  }
+
+  private addItems(val: any, index: number) {
+    this.array.push(val);
+    this.skips.push(index);
   }
 
   private searchInByString(obj: {} = {}, properties: string, value?): any {
